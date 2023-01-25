@@ -4,25 +4,22 @@ import UserCard from './components/UserCard';
 import Loader from './components/Loader';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { remove } from './store/userDataSlice';
+import { remove, set } from './store/userDataSlice.js';
 
 function App() {
   const userData = useSelector((state) => state.userData.value);
   const dispatch = useDispatch();
 
-  // const [userData, setUserData] = useState([]);
+  const items = JSON.parse(localStorage.getItem('persist:root'));
 
-  // useEffect(() => {
-  //   fetch('https://jsonplaceholder.typicode.com/users')
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       // setUserData(res);
-  //       dispatch(set(res));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [dispatch]);
+  if (!items) {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(set(res));
+        localStorage.setItem('lastUpdated', JSON.stringify(Date.now()));
+      });
+  }
 
   const removeItemHandler = (id) => {
     // setUserData(userData.filter((user) => user.id !== id));

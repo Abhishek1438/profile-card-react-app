@@ -13,7 +13,7 @@ import { Modal } from 'antd';
 import { useState } from 'react';
 import { Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
-import { remove } from '../store/userDataSlice';
+import { remove } from '../store/userDataSlice.js';
 
 const UserCard = (props) => {
   const [form] = Form.useForm();
