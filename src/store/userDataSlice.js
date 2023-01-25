@@ -8,10 +8,12 @@ if ((Date.now() - lastUpdated) / (1000 * 60) > 60) {
 let initial_data = [];
 const items = JSON.parse(localStorage.getItem('persist:root'));
 if (!items) {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users');
-  const json = await res.json();
-  initial_data = json;
-  localStorage.setItem('lastUpdated', JSON.stringify(Date.now()));
+  await (async () => {
+    const res = await fetch('https://jsonplaceholder.typicode.com/users');
+    const json = await res.json();
+    initial_data = json;
+    localStorage.setItem('lastUpdated', JSON.stringify(Date.now()));
+  })();
 }
 
 const initialState = {
